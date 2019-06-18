@@ -8,16 +8,20 @@ import java.util.List;
 
 public class AnyStringNumberImpl implements AnyStringNumber<List<String>> {
 
+    private FileParser parser;
+
+    public AnyStringNumberImpl(@NonNull FileParser parser) {
+        this.parser = parser;
+    }
+
     @Override
     public List<String> findStringsByNumbers(@NonNull String pathToFile, Integer... numbers) throws FileNotFoundException {
 
-        List<String> lines = new FileParserImpl().parse(pathToFile);
+        List<String> lines = parser.parse(pathToFile);
         List<String> picked = new ArrayList<>(numbers.length);
 
         for (int number : numbers) {
-
             if (number >= 0 && number < lines.size()) {
-
                 picked.add(lines.get(number));
             }
         }

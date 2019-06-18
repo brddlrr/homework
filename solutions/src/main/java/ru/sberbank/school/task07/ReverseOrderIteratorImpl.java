@@ -1,5 +1,7 @@
 package ru.sberbank.school.task07;
 
+import lombok.NonNull;
+
 import java.util.List;
 import java.util.ListIterator;
 
@@ -7,7 +9,7 @@ public class ReverseOrderIteratorImpl<E> implements ReverseOrderIterator<E> {
 
     private ListIterator<E> iterator;
 
-    public ReverseOrderIteratorImpl(List<E> list) {
+    public ReverseOrderIteratorImpl(@NonNull List<E> list) {
         this.iterator = list.listIterator(list.size());
     }
 

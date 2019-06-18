@@ -11,8 +11,6 @@ import java.util.List;
 
 public class FileParserImpl implements FileParser {
 
-
-
     @Override
     public List<String> parse(@NonNull String pathToFile) throws FileNotFoundException {
 
@@ -21,7 +19,7 @@ public class FileParserImpl implements FileParser {
         try (BufferedReader br = new BufferedReader(new FileReader(pathToFile))){
 
             while (br.ready()) {
-                lines.add(br.readLine());
+                lines.add(br.readLine().toLowerCase());
             }
 
         } catch (IOException ioe) {

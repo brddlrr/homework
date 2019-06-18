@@ -3,27 +3,28 @@ package ru.sberbank.school.task07;
 import lombok.NonNull;
 
 import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
 
 public class WordsFrequencyImpl implements WordFrequency<Map<String, Integer>> {
+
+    private FileParser parser;
+
+    public WordsFrequencyImpl(@NonNull FileParser parser) {
+        this.parser = parser;
+    }
 
     @Override
     public Map<String, Integer> countWords(@NonNull String pathToFile) throws FileNotFoundException {
 
         Map<String, Integer> freqMap = new HashMap<>();
+        List<String> lines = parser.parse(pathToFile);
 
-        try (Scanner scanner = new Scanner(new FileReader(pathToFile))) {
-
-            while (scanner.hasNext()) {
-                freqMap.merge(scanner.next().toLowerCase(), 1, Integer::sum);
+        for (String line : lines) {
+            for (String word : line.split("\\s+")) {
+                freqMap.merge(word, 1, Integer::sum);
             }
-
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
         }
 
         return freqMap;
